@@ -401,11 +401,30 @@ docker image prune - to clean up unused images
 Important: Always take approval before running cleanup commands in production
 Key Points:
 
-Containers are lightweight, so some commands may need to be installed inside them
-Manual management of many containers is difficult, leading to the need for Kubernetes
-Kubernetes Introduction:
 
 =============================================================================================
+Container Troubleshooting Commands:
 
-   
+1. Docker logs - Use docker logs <container_id> to check container logs and identify issues
+* You can filter for specific errors using docker logs <container_id> | grep ERR to see only error messages
+2. Docker stats - Run docker stats to monitor real-time resource usage including CPU and memory consumption of running containers
+3. Docker inspect - Use docker inspect <container_id> to get detailed information about the container including networking information
+4. Docker ps - Check running containers with docker ps or all containers with docker ps -a
+Common Issues and Solutions:
+
+5. Out of Memory (OOM) - When containers consume more memory than allocated
+* Solution: Increase container memory allocation or restart the container
+
+6. Container Access Issues - If unable to SSH or access containers
+* Check firewall rules and ensure proper port access (like port 22 for SSH)
+* Verify IP whitelisting and network configurations
+7. Space Management - Use docker system df to check disk usage by Docker components
+* Clean up unused resources with docker system prune (requires manager approval in production)
+* This removes stopped containers, unused networks, and dangling images
+Best Practices:
+
+* Always take approval from manager/client before running cleanup commands in production
+* Monitor logs regularly to catch issues early
+* Check resource consumption using stats command to prevent OOM situations
+The instructor emphasized that these are real-time operations that DevOps engineers frequently perform in production environments.
 
