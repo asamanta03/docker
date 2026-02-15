@@ -12,8 +12,6 @@ What is the real-time CPU memory configuration used in production?
 Answer: Standard size mentioned was 16 CPUs, 32GB RAM (though the instructor noted this varies based on requirements).
 What is the latest CentOS version?
 Answer: Version 10 is the latest.
-What is Docker?
-Answer: With the help of Docker, we can build, ship, and run any application anywhere.
 ---------------------------------------------------------------------------------------------
 1. What is Docker?
 Docker is an open-source containerization platform tool that converts application code with binaries and dependencies, making it lightweight, portable, and environment-friendly. With Docker, we can build, refine and ship images from one environment to another in containerized form.
@@ -33,15 +31,18 @@ IT (interactive mode): Used for first time entering a container
 EXEC -IT: Used for re-entering an already running container
 6. How to convert Container to Image?
 Use the "docker commit" command with container ID
+docker commit <container_name_or_id> <new_image_name>:<tag>
 7. What is NGINX?
 Open source web server used for reverse proxy, caching, load balancing, and media streaming
 8. Port Mapping:
 Use -P flag with format: VM_port:container_port (e.g., -P 8080:80)
-First port is for VM, second port is for container
+First port is for VM(host port), second port is for container(application port)
 9. How to run container in background?
 Use -d (detached mode) flag with docker run command
 10. How to name a container?
 Use --name flag: docker run --name your_name
+docker run --name atanu nginx:latest
+
 Scenario 1: Docker Pull vs Docker Run
 Question: What is the difference between docker pull and docker run commands?
 Answer: Docker pull only downloads the image. Docker run downloads the image (if not available) and also creates and runs a container from that image.
@@ -65,17 +66,12 @@ Answer: Port mapping was not done. Need to use docker run -p 8080:80 nginx to ma
 Scenario 6: Container to Image
 Question: How to convert a container back to an image?
 Answer: Use docker commit command.
+docker commit <container_name_or_id> <new_image_name>:<tag>
 nginx path inside container: /usr/share/nginx/html
 ------------------------------------------------------------------------------------
 
 Question 1: How do you unlock Jenkins when running it in a Docker container for the first time?
 Answer: You need to execute into the container using "docker exec -it <container_id> /bin/bash", then run "cat /var/jenkins_home/secrets/initialAdminPassword" to get the unlock password. Copy this password and paste it in the Jenkins UI to unlock it. This is required because when Jenkins is installed for the first time, you need to prove you're the admin by retrieving the password from the server.
-
-Question 2: How much time does it take to create and run a Docker container?
-Answer: First time when the image is not available locally, it takes around 1-2 seconds including download and container creation time (based on image size). Second time onwards, it takes only around 69 milliseconds since the image is already downloaded. You can check this using the "time" command before your docker run command.
-
-Question 3: Can Alpine Linux be used in production environments?
-Answer: Yes, Alpine is widely used in production for Dockerized applications because it is lightweight (3-8 MB size depending on version). It's very popular for containerization due to its small size, which is ideal for Docker's purpose of creating lightweight images.
 
 Question 4: How do you check CPU and memory consumption of running containers?
 Answer: Use the "docker stats" command to see real-time CPU and memory consumption of all running containers. Note that only running containers consume CPU/memory - images just have a size and don't consume resources until they're running as containers.
@@ -84,7 +80,13 @@ Question 5: How many web servers can you run on a single VM?
 Answer: You can run multiple containers (10, 20, 100+) on a single VM depending on the VM's capacity. This can be done using loops in scripting. However, for port mapping with multiple NGINX containers, you would need load balancers or Kubernetes pods to properly distribute requests.
 
 Question 6: Can you set limits on how much memory a container should use?
-Answer: Yes, you can set resource limits on containers (this was confirmed in the discussion, with Kubernetes providing.
+Answer: Yes, you can set resource limits on containers.
+docker run -d --name atanu -m 256m nginx
+docker run -d -m 512m nginx (hard limit)
+docker run -d -m 512m --memory-swap 1g nginx (Memory + Swap limit)
+docker run -d -m 512m --memory-swap 512m nginx (swap limit stop)
+
+
 
 Q1: How much time does it take to create and run a Docker container?
 A: First time when the image is not available locally, it takes around 1-2 seconds (including download time). Second time onwards, it takes only 50-100 milliseconds since the image is already downloaded. You can check the exact time using the "time" command before the docker run command.
@@ -95,39 +97,22 @@ A: Alpine is the smallest/lightweight Linux operating system with a size of appr
 Q3: How do you check CPU and memory consumption of running containers?
 A: Use the command "docker stats" to see CPU and memory consumption of all running containers in real-time. Note that only running containers consume CPU/memory - images just have a storage size.
 
-Q4: How do you get the Jenkins initial admin password from a Docker container?
-A: You need to execute into the container using "docker exec -it <container_id> /bin/bash" and then run "cat /var/jenkins_home/secrets/initialAdminPassword" to get the unlock password.
-
 Q5: How do you map a custom HTML file to an NGINX container?
 A: Use volume mapping with the -v flag: docker run -p 80:80 -d -v /path/to/your/html:/usr/share/nginx/html nginx. The VM location comes first, then the container location.
-
-Q6: How many containers can run on a single VM?
-A: Multiple containers can run on a single VM depending on the VM's capacity. You can create multiple containers using loops, but for web servers requiring different ports, you would need load balancers or Kubernetes pods for proper management.
 
 Q: How to install Docker?
 A: Use command: sudo apt-get update && sudo apt install docker.io -y
 
-Q: What is Alpine?
-A: Alpine is the smallest operating system used in Docker, with size around 3-8 MB depending on version. It can be used in production for lightweight containerized applications.
-
-Q: How to check Docker container CPU and memory usage?
-A: Use command: docker stats
 
 Q: How to get Jenkins unlock password from container?
 A: First exec into container: docker exec -it <container_id> /bin/bash
 Then run: cat /var/jenkins_home/secrets/initialAdminPassword
-
-Q: How much time does it take to run a container?
-A: First time (with image download): 1-2 seconds. Second time (image already present): Less than 100 milliseconds. Use "time" command before docker run to check exact time.
 
 Q: Can we check CPU/memory for Docker images?
 A: No, only running containers consume CPU/memory. Images only have storage size.
 
 Q: How to map custom HTML file to Nginx container?
 A: Use volume mapping: docker run -p 80:80 -d -v /path/to/your/index.html:/usr/share/nginx/html nginx
-
-Q: Can we set limits on container resource usage?
-A: Yes, it can be done (detailed configuration will be covered in Kubernetes sessions).
 
 Q: How to remove a container?
 A: docker rm <container_id> or docker rm -f <container_id> (forcefully)
@@ -157,7 +142,7 @@ Q: Docker Desktop consuming too much memory and CPU. What to do?
 A: Docker Desktop requires heavy machine with at least 12GB RAM (6GB for Docker + 6GB for Kubernetes). If machine has less memory, better to use cloud-based virtual machines or Docker Playground instead of local installation.
 
 ---------------------------------------------------------------------------------------------------------
-
+---------------------------------------------------------------------------------------------------------
 1. What is a Dockerfile?
 Answer: A Dockerfile is a text document with no extension that contains all the commands to assemble an image. Docker builds the image automatically by reading the instructions from the Dockerfile.
 
@@ -193,9 +178,12 @@ Answer: There is no extension for a Dockerfile.
 Answer: A golden image is a pure, vulnerability-free, hardened image that has been approved by the security team for use in production.
 
 -----------------------------------------------------------------------
-
+-----------------------------------------------------------------------------
 Q1: A client sends you a Docker image as a TAR file. How would you use it?
 A: Use the docker load command to convert the TAR file back into a Docker image. Then you can run containers from that image.
+docker load -i image-name.tar
+docker run -d --name client-container -p 8080:80 client-app:latest
+
 
 Q2: Your container is running but you need to check what's happening inside. What commands would you use for troubleshooting?
 A:
