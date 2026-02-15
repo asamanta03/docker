@@ -221,7 +221,130 @@ A: The container consumed more memory than allocated and got killed. Use docker 
 Q6: How do you enable communication between multiple containers?
 A: Create a Docker network using docker network create <network_name>, then run containers with --network <network_name> flag to connect them to the same network.
 
+=====================================================================
 
+ Interview Questions Docker Fundamentals:
+
+        • What is the difference between a virtual machine and Docker container?
+
+        • Explain the difference between Docker images and Docker containers.
+
+        • What is Docker Hub and how do you create an account?
+
+* Docker Commands:
+
+        • What are the basic Docker commands to pull an image and create a container?
+
+        • How do you check running containers and available images?
+
+        • What is the difference between 'docker run' and 'docker exec' commands?
+
+* Dockerfile:
+
+        •  What is a Dockerfile and what are its key components?
+
+        • Explain the difference between RUN and CMD instructions in Dockerfile.
+
+        •  What does the FROM instruction do in a Dockerfile?
+
+        • What is the purpose of MAINTAINER instruction?
+
+* Docker Image Management:
+
+        •  How do you build a Docker image from a Dockerfile?
+
+        • Explain the docker build command with -t flag.
+
+        • How do you tag and push images to Docker Hub?
+
+        •  What is the significance of the dot (.) in docker build command?
+
+* Containerized Applications:
+
+        • How would you containerize a Jenkins application?
+
+        • What are the advantages of running applications in containers versus virtual machines?
+
+        •  How do you access files inside a running container?
+
+* Practical Scenarios:
+
+        •  If you get a "port already in use" error, how would you resolve it?
+
+        •  How do you handle firewall issues when accessing containerized applications?
+
+        •  In a company environment, who typically writes Dockerfiles and who builds/pushes images?
+
+        • These questions cover the main topics discussed in the Docker training session from the meeting transcript.
+
+
+
+Docker Swarm-Old concept-will be focused on k8s
+Docker swarm info in ppt.
+
+Time docker run –rm hello-world
+====================================================================================
+Interview Question - Docker Commands and Concepts:
+
+* What is the difference between COPY and ADD commands in Dockerfile?
+
+* Which one is better - COPY or ADD command and why?
+
+* What is the difference between CMD and RUN commands?
+
+* What is the difference between ENTRYPOINT and CMD?
+
+* What do you mean by EXPOSE in Dockerfile?
+
+* What is working directory in Docker?
+
+* What are the major commands used in Dockerfile?
+
+* Docker Operations:
+
+* Can we create an image from a container? If yes, how?
+
+* What command is used to create image from container?
+
+* How do you troubleshoot Docker containers?
+
+* What commands do you use for troubleshooting containers?
+
+* How do you check container logs for errors?
+
+* How do you clean up unnecessary Docker images and containers?
+
+* Real-time Scenarios:
+
+•  What is the ongoing issue happening with CloudFlare? (Current industry issue)
+
+* How do you get project access in cloud environments?
+
+* How do you get access to only specific VMs instead of entire project?
+
+* What causes "connection refused" error when trying to SSH into a VM?
+
+* What is OOM (Out of Memory) in containers and how to fix it?
+
+* Docker Workflow:
+
+* Explain the complete Docker workflow from Dockerfile to running container
+
+* Who is responsible for writing Dockerfile - Developer or DevOps engineer?
+
+* Who performs the build process in Docker?
+
+* How do you backup Docker images to cloud storage like S3?
+
+* Optimization:
+
+* How to optimize Dockerfile to reduce number of lines?
+
+* How to reduce Docker image size?
+
+* What are dangling images?
+
+* Why is Alpine Linux preferred over Ubuntu for Docker images?
 
 
 
