@@ -1,0 +1,660 @@
+Docker Day - 1
+Comands:
+1  curl -fsSL https://get.docker.com -o install-docker.sh
+    2  ls
+    3  sh install-docker.sh
+    4  docker --version
+    5  docker ps
+    6  docker ps -a
+    7  docker images
+    8  docker run hello-world
+    9  docker ps
+   10  docker ps -a
+   11  docker images
+   12  docker run -it ubuntu
+   13  docker ps
+   14  docker ps -a
+   15  docker start 8aafca4a6f92
+   16  docker ps
+   17  docker exec -it 8aafca4a6f92 bin/bash
+   18  docker ps
+   19  docker images
+   20  docker commit 8aafca4a6f92 anuragiswrongimage
+   21  docker images
+   22  docker pull nginx
+   23  docker images
+   24  docker run nginx
+   25  docker ps
+   26  docker ps -a
+   27  docker run -p 80:80 nginx
+   28  docker run --name docker-nginx -p 80:80 nginx
+   29  docker ps -a
+   30  docker run --name -d docker-nginx -p 80:80 nginx
+   31  docker run --name docker-nginx -d -p 80:80 nginx
+   32  docker run --name docker-nginx1 -d -p 80:80 nginx
+   12 docker exec -it container_id /bin/bash
+Main Topic: Introduction to Docker and Containerization
+The session was a Day 1 introduction to Docker for Batch-42, focusing on understanding the fundamental problems that Docker solves before diving into the tool itself.
+Key Concepts Covered:
+Problem Statement: The instructor explained why Docker was created by comparing it to assembling a mobile phone - if parts are assembled separately in production, things don't work properly. Similarly, applications need all dependencies packaged together.
+Virtualization vs Containerization:
+Virtual Machines require heavy hardware, hypervisor layers, and full operating systems
+VMs are large in size (2GB+) making them difficult to move between environments
+Docker containers are much lighter (around 72MB for Ubuntu base image vs 2GB+ for VMs)
+Microservices Architecture: Discussion on how Docker enables microservices where large applications are divided into small, independent services that can work separately.
+Docker Basics:
+Image: Package of binaries, libraries, and dependencies with OS in one box
+Container: Running instance of an image
+Node: VM with application installed
+Practical Exercise:
+Students created Ubuntu machines on Google Cloud
+Installed Docker using automated commands
+Pulled Jenkins image from Docker Hub (491MB size)
+Ran Jenkins container using docker run command with port mapping
+Homework Assigned:
+Download guest operating system
+Find command to delete VM from command line
+Practice the Docker installation and Jenkins container deployment
+The session emphasized understanding problems before learning solutions, with focus on hands-on practice.
+===============================================================================================================
+Based on the meeting transcript, the session was heavily focused on scenario-based learning and practical Q&A throughout. Here are the key scenario-based topics covered:
+Real-world Problem Scenarios: The instructor explained why Docker was created by discussing real-world problems with virtual machines - heavy size, difficult transportation between environments, and assembly issues in production.
+Practical Deployment Scenarios: The session covered scenarios like moving applications from Dev to QA to Production environments, explaining how Docker solves the problem of "it works on my machine but not in production."
+Microservices Architecture Scenarios: Discussion included real-world examples like Flipkart's Big Billion Sale, where different services (order service, cart, user management) need to scale independently.
+Jenkins Installation Scenario: A practical scenario was demonstrated where installing Jenkins requires 7 steps in a VM, and how one missing step causes failure. Docker solves this by packaging everything together.
+Interview-focused Questions: The instructor asked scenario-based questions like:
+What CPU/memory configurations are used in real-time production (Answer: 16 CPUs, 32GB RAM as standard)
+How to handle different OS flavors (Ubuntu, CentOS) for the same application
+Port mapping and container networking scenarios
+The instructor emphasized learning through practical scenarios rather than just theory, encouraging students to solve real problems and share screenshots of their implementations in the WhatsApp group.
+================================================================================================================================
+Based on the meeting transcript, several interview questions and answers were discussed:
+Interview Questions Covered:
+What is virtualization?
+Answer: When we are accessing something (machine or resources) with the help of internet, it is known as virtualization. If it's a machine accessing with the help of internet, it is known as virtual machines.
+What type of architecture is used with Docker and Kubernetes?
+Answer: Microservice-based architecture. In this approach, bigger applications are divided into small, small independent parts that can work independently.
+What is an Image?
+Answer: Packaging of binary, library, dependencies with the operating system packed in one box is known as an image.
+What is a Container?
+Answer: Running an image is known as container. It's a running application.
+What is a Node?
+Answer: VM (Virtual Machine) plus application installed is called Node.
+What is the real-time CPU memory configuration used in production?
+Answer: Standard size mentioned was 16 CPUs, 32GB RAM (though the instructor noted this varies based on requirements).
+What is the latest CentOS version?
+Answer: Version 10 is the latest.
+What is Docker?
+Answer: With the help of Docker, we can build, ship, and run any application anywhere.
+The instructor emphasized understanding problems before learning tools, and stressed that students should be able to explain these concepts clearly for interviews.
+=================================================================================================================
+To install the latest stable versions of Docker CLI, Docker Engine, and their
+# dependencies:
+#
+# 1. download the script
+#
+#   $ curl -fsSL https://get.docker.com -o install-docker.sh
+#
+# 2. verify the script's content
+#
+#   $ cat install-docker.sh
+#
+# 3. run the script with --dry-run to verify the steps it executes
+#
+#   $ sh install-docker.sh --dry-run
+#
+# 4. run the script either as root, or using sudo to perform the installation.
+#
+#   $ sudo sh install-docker.sh
+======================================================================================================================
+Step 1 – Pull ubuntu image from docker hub
+docker images
+Step 2  - Run the image in interactive mode to make a container
+	docker run -it ubuntu     
+Step 3 Come out from the container with exit command 
+Step 4 – Start a container 
+	docker start <container ID>
+Step -5  logged into the bash of the  container 
+	docker exec -it 8aafca4a6f92 bin/bash
+Step -6  Your container is ready to play any application try to install GIT in ubuntu container
+apt update 	
+apt install git-all 
+apt install ansible
+apt install python
+it is use for make container to image
+docker commit <container_id> <image_name>:<tag>
+
+===========================================================================================================================================================
+
+Docker day 2
+Based on the meeting transcript, here is a summary:
+
+This was a training session on Docker and Kubernetes led by Vikas (Cloud DevOps Hub) as part of Batch-42. The session covered:
+
+Main Topics:
+
+Docker Basics: The instructor explained Docker as an open-source containerization platform that helps build, ship, and run applications in containerized form across different environments.
+
+Docker Architecture: Three main components were discussed:
+
+Client (where commands are executed)
+Host (where Docker is installed)
+Registry (Docker Hub - where images are stored)
+Docker Workflow: When running "docker run hello-world":
+
+Docker client connects to Docker daemon
+Docker daemon checks for image locally
+If not found, pulls image from Docker Hub
+Creates container from image
+Runs the container and displays output
+Practical Commands Covered:
+
+docker pull (downloads image only)
+docker run (downloads and runs container)
+docker ps (shows running containers)
+docker ps -a (shows all containers including stopped ones)
+docker images (lists available images)
+docker start (starts stopped container)
+docker exec -it (enters running container)
+docker commit (converts container to image)
+docker run -it -d -p 8080:8080 jenkins/jenkins:latest
+cat /var/jenkins_home/secrets/initialAdminPassword
+docker ps
+docker exec -it b1f980c2a1f2 bin/bash
+Port mapping using -p flag
+Naming containers using --name flag
+Hands-on Practice: Students created VMs on Google Cloud, installed Docker using scripted approach, worked with Ubuntu and Nginx containers, installed packages inside containers, and practiced port mapping.
+
+Key Concepts: Container lifecycle, interactive mode (-it flag), detached mode (-d flag), Docker Hub registry (public vs private images), and difference between docker run and docker pull commands.
+======================================
+Based on the meeting transcript, here are the key Q&A topics covered in today's session:
+
+1. What is Docker?
+
+Docker is an open-source containerization platform tool that converts application code with binaries and dependencies, making it lightweight, portable, and environment-friendly. With Docker, we can build, refine and ship images from one environment to another in containerized form.
+2. What is the difference between Docker Pull and Docker Run?
+
+Docker Pull: Only downloads the image from Docker Hub
+Docker Run: Downloads the image AND creates a container from it, then runs the application
+3. What is Docker Hub?
+
+Docker Hub is a registry where all Docker images are maintained. It has around 6.3 million public repositories. It can be used for personal or professional purposes, with images being either public or private.
+4. Docker Architecture Flow:
+
+Docker client connects to Docker daemon
+Docker daemon checks if image is available locally
+If not available, daemon pulls image from Docker Hub
+Daemon creates a new container from the image
+Output is displayed in the terminal
+5. What is the difference between IT and EXEC commands?
+
+IT (interactive mode): Used for first time entering a container
+EXEC -IT: Used for re-entering an already running container
+6. How to convert Container to Image?
+
+Use the "docker commit" command with container ID
+7. What is NGINX?
+
+Open source web server used for reverse proxy, caching, load balancing, and media streaming
+8. Port Mapping:
+
+Use -P flag with format: VM_port:container_port (e.g., -P 8080:80)
+First port is for VM, second port is for container
+9. How to run container in background?
+
+Use -d (detached mode) flag with docker run command
+10. How to name a container?
+
+Use --name flag: docker run --name your_name
+========================================
+Based on the meeting transcript, there were several scenario-based questions and answers discussed during this Docker and Kubernetes session:
+
+Scenario 1: Docker Pull vs Docker Run
+Question: What is the difference between docker pull and docker run commands?
+Answer: Docker pull only downloads the image. Docker run downloads the image (if not available) and also creates and runs a container from that image.
+
+Scenario 2: Container Not Visible
+Question: Why is the container not visible when running docker ps after running a container?
+Answer: The container has exited and is not in running state. To see exited containers, use docker ps -A (or docker ps hyphen A). To restart it, use docker start .
+
+Scenario 3: Getting Back into Container
+Question: How to get back into an exited container?
+Answer: First start the container using docker start , then use docker exec -it /bin/bash to get inside the container.
+
+Scenario 4: IT vs EXEC Command
+Question: What is the difference between docker run -it and docker exec -it?
+Answer: Docker run -it is used for the first time to create and enter a container interactively. Docker exec -it is used to enter an already running container.
+
+Scenario 5: Port Mapping Issue
+Question: Why can't I access NGINX on the browser after running the container?
+Answer: Port mapping was not done. Need to use docker run -p 8080:80 nginx to map the container port to the VM port (first port is for VM, second is for container).
+
+Scenario 6: Container to Image
+Question: How to convert a container back to an image?
+Answer: Use docker commit command.
+
+nginx path inside container: /usr/share/nginx/html
+===============================================================================================
+
+Day 3:
+
+Based on the meeting transcript, here are several scenario-based interview questions and answers that were discussed:
+
+Question 1: How do you unlock Jenkins when running it in a Docker container for the first time?
+
+Answer: You need to execute into the container using "docker exec -it <container_id> /bin/bash", then run "cat /var/jenkins_home/secrets/initialAdminPassword" to get the unlock password. Copy this password and paste it in the Jenkins UI to unlock it. This is required because when Jenkins is installed for the first time, you need to prove you're the admin by retrieving the password from the server.
+
+Question 2: How much time does it take to create and run a Docker container?
+
+Answer: First time when the image is not available locally, it takes around 1-2 seconds including download and container creation time (based on image size). Second time onwards, it takes only around 69 milliseconds since the image is already downloaded. You can check this using the "time" command before your docker run command.
+
+Question 3: Can Alpine Linux be used in production environments?
+
+Answer: Yes, Alpine is widely used in production for Dockerized applications because it is lightweight (3-8 MB size depending on version). It's very popular for containerization due to its small size, which is ideal for Docker's purpose of creating lightweight images.
+
+Question 4: How do you check CPU and memory consumption of running containers?
+
+Answer: Use the "docker stats" command to see real-time CPU and memory consumption of all running containers. Note that only running containers consume CPU/memory - images just have a size and don't consume resources until they're running as containers.
+
+Question 5: How many web servers can you run on a single VM?
+
+Answer: You can run multiple containers (10, 20, 100+) on a single VM depending on the VM's capacity. This can be done using loops in scripting. However, for port mapping with multiple NGINX containers, you would need load balancers or Kubernetes pods to properly distribute requests.
+
+Question 6: Can you set limits on how much memory a container should use?
+
+Answer: Yes, you can set resource limits on containers (this was confirmed in the discussion, with Kubernetes providing
+=====================================
+Based on the Docker training session, here are some interview questions and answers that were discussed:
+
+Q1: How much time does it take to create and run a Docker container?
+A: First time when the image is not available locally, it takes around 1-2 seconds (including download time). Second time onwards, it takes only 50-100 milliseconds since the image is already downloaded. You can check the exact time using the "time" command before the docker run command.
+
+Q2: What is Alpine and can it be used in production?
+A: Alpine is the smallest/lightweight Linux operating system with a size of approximately 3-8 MB (depending on version). Yes, Alpine is widely used in production for Dockerized applications because of its lightweight nature, which is ideal for containerization.
+
+Q3: How do you check CPU and memory consumption of running containers?
+A: Use the command "docker stats" to see CPU and memory consumption of all running containers in real-time. Note that only running containers consume CPU/memory - images just have a storage size.
+
+Q4: How do you get the Jenkins initial admin password from a Docker container?
+A: You need to execute into the container using "docker exec -it <container_id> /bin/bash" and then run "cat /var/jenkins_home/secrets/initialAdminPassword" to get the unlock password.
+
+Q5: How do you map a custom HTML file to an NGINX container?
+A: Use volume mapping with the -v flag: docker run -p 80:80 -d -v /path/to/your/html:/usr/share/nginx/html nginx. The VM location comes first, then the container location.
+
+Q6: How many containers can run on a single VM?
+A: Multiple containers can run on a single VM depending on the VM's capacity. You can create multiple containers using loops, but for web servers requiring different ports, you would need load balancers or Kubernetes pods for proper management.
+=======================================================================================================================
+Q: How to install Docker?
+A: Use command: sudo apt-get update && sudo apt install docker.io -y
+
+Q: What is Alpine?
+A: Alpine is the smallest operating system used in Docker, with size around 3-8 MB depending on version. It can be used in production for lightweight containerized applications.
+
+Q: How to check Docker container CPU and memory usage?
+A: Use command: docker stats
+
+Q: How to get Jenkins unlock password from container?
+A: First exec into container: docker exec -it <container_id> /bin/bash
+Then run: cat /var/jenkins_home/secrets/initialAdminPassword
+
+Q: How much time does it take to run a container?
+A: First time (with image download): 1-2 seconds. Second time (image already present): Less than 100 milliseconds. Use "time" command before docker run to check exact time.
+
+Q: Can we check CPU/memory for Docker images?
+A: No, only running containers consume CPU/memory. Images only have storage size.
+
+Q: How to map custom HTML file to Nginx container?
+A: Use volume mapping: docker run -p 80:80 -d -v /path/to/your/index.html:/usr/share/nginx/html nginx
+
+Q: Can we set limits on container resource usage?
+A: Yes, it can be done (detailed configuration will be covered in Kubernetes sessions).
+
+Q: How to remove a container?
+A: docker rm <container_id> or docker rm -f <container_id> (forcefully)
+============================================================================================================================
+Based on the meeting transcript, here is a summary:
+
+This was Day 3 of a Docker training session led by Vikas from CloudDevOpsHub for Batch 42, focusing on Multi-Cloud with AWS, DevOps, and AI.
+
+Key Topics Covered:
+
+Docker Installation: Students learned to install Docker using scripted methods on Google Cloud VMs, with commands like "sudo apt-get update && sudo apt install docker.io -y"
+
+Container Operations:
+
+Running containers with different flags (IT, D for interactive and detached modes)
+Port mapping using hyphen P (e.g., 80:80)
+Container naming using --name flag
+Starting, stopping, and removing containers
+Volume Mapping: Students learned to map local files to containers using hyphen V flag, creating custom web pages by mapping local HTML files to NGINX containers at /usr/share/nginx/html location
+
+Practical Exercises:
+
+Running NGINX containers with custom HTML pages
+Using ChatGPT to generate HTML code for custom landing pages
+Installing and unlocking Jenkins in containers
+Accessing Jenkins admin password using "docker exec -it /bin/bash"
+Interview-Focused Concepts:
+
+Container startup time measurement using "time" command
+Alpine Linux as lightweight image (3-8 MB size, production-ready)
+Checking container CPU/memory usage with "docker stats" command
+Running multiple containers on single VM using loops
+Assignments: Students were given assignments to install Docker via scripted way and pull Ubuntu, NGINX, and CentOS images, with submissions tracked through Google Classroom.
+
+=======================================================================================
+Day 4:
+Docker file:
+
+FROM ubuntu    ----> os image
+MAINTAINER clouddevopshub@gmail.com  ---> optional for owner name
+RUN apt-get update                   --->> any os level command
+RUN apt-get install nginx -y           ---->>> any os level command   
+CMD ["echo","Image created"]              ------>>> any application lavel command
+
+docker login
+docker tag 5e92a79a891c vikas4cloud/shilpa42:latest
+docker tag <image-id of mynginxbatch17 > vikas4cloud/mynginxbatch21:latest
+docker push asamanta03/mynginx42(image name)
+docker pull asamanta03/mynginx42(image name)
+
+entry point:
+this is the 1st command to be run as soon as container is ready.
+=======================================================================
+Based on the meeting transcript, here are some scenario-based questions and answers that were discussed:
+
+Scenario 1: Docker Installation Approach
+Q: Which approach should be used to install Docker?
+A: Two approaches were discussed - direct installation and scripted approach. The scripted approach was chosen as it's more efficient and doesn't require much manual effort.
+
+Scenario 2: Image Size Optimization
+Q: Client wants to reduce the Docker image size from 120MB. How to optimize?
+A: Multiple solutions were discussed:
+
+Use Alpine Linux instead of Ubuntu (reduces to 30-50MB)
+Use official nginx image directly instead of installing it
+Merge multiple RUN commands into one line
+Remove unnecessary packages and avoid additional dependencies
+Scenario 3: Docker Login Authentication
+Q: What to do when getting authentication/authorization failed error during docker push?
+A: Run "docker login" command, copy the URL provided, paste in browser, copy the one-time password, and paste it back in terminal to complete authentication.
+
+Scenario 4: Container Not Running
+Q: Image created successfully but container showing in "docker ps -a" but not in "docker ps". Why?
+A: The container needs to be started. The EXPOSE keyword might be missing in Dockerfile. For nginx, port 80 must be exposed for it to work properly.
+
+Scenario 5: Heavy Machine Requirements
+Q: Docker Desktop consuming too much memory and CPU. What to do?
+A: Docker Desktop requires heavy machine with at least 12GB RAM (6GB for Docker + 6GB for Kubernetes). If machine has less memory, better to use cloud-based virtual machines or Docker Playground instead of local installation.
+===============================
+This meeting covered Docker and Dockerfile concepts with hands-on practice. Here's a summary:
+
+Main Topics:
+
+Docker Installation Methods:
+
+Docker Desktop installation on Windows (local machine)
+Installing Docker on cloud VMs (Google Cloud/AWS)
+Kubernetes cluster setup alongside Docker
+System requirements: virtualization enabled, WSL installation, adequate RAM (12GB+ recommended)
+Dockerfile Fundamentals:
+
+Dockerfile is a text document with no extension containing commands to build images
+Key keywords explained: FROM (base image), RUN (OS-level commands), CMD (application-level commands), COPY (host to image), ADD (internet to image), ENV (environment variables), EXPOSE (port exposure), WORKDIR (working directory)
+Maintainer keyword is deprecated
+Practical Exercise:
+
+Created a Dockerfile with 5 lines to build an nginx image
+Built image using: docker build -t .
+Image optimization discussed: combining commands, using Alpine base images, using official images directly
+Pushed images to Docker Hub after docker login authentication
+Best Practices:
+
+Keep Dockerfiles lightweight (typically 5-10 lines)
+Avoid unnecessary packages
+Use specific version tags
+Prefer COPY over ADD for security and reliability
+Golden image/hardening concepts for production use
+Additional Concepts:
+
+Multi-stage Dockerfiles for creating multiple containers
+Dockerfile validation using lint tools
+Difference between RUN (OS-level) and CMD (application-level) commands
+Students practiced creating VMs, installing Docker, writing Dockerfiles, building images, and pushing to Docker Hub.
+================================================
+Based on the meeting transcript, here are the Dockerfile interview questions and answers that were discussed:
+
+1. What is a Dockerfile?
+Answer: A Dockerfile is a text document with no extension that contains all the commands to assemble an image. Docker builds the image automatically by reading the instructions from the Dockerfile.
+
+2. What is the difference between RUN and CMD?
+Answer: RUN is used for operating system level commands (like apt update, apt install). CMD is used for application level commands. RUN executes commands while building the image, whereas CMD specifies the command to run when the container starts.
+
+3. What is the FROM keyword?
+Answer: FROM is used to select the base image (operating system) for the Dockerfile. For example, FROM Ubuntu or FROM Alpine.
+
+4. What is the difference between COPY and ADD commands?
+Answer: COPY is used to copy files and directories from the host machine to the container/image. ADD is used to download and add files from the internet (URL). ADD is not recommended because:
+
+Security vulnerabilities
+Slower image build time due to downloads
+Internet availability issues
+URLs can change, causing build failures
+5. What is ENTRYPOINT?
+Answer: ENTRYPOINT is the first script or command to be run as soon as the container is ready. It's the initialization command for the container.
+
+6. What is ENV keyword?
+Answer: ENV is used to set environment variables inside the container.
+
+7. What is EXPOSE keyword?
+Answer: EXPOSE is used to expose specific ports so the application can be accessible. For example, nginx runs on port 80, so you need to expose that port.
+
+8. What is WORKDIR?
+Answer: WORKDIR sets the current working directory where activities will be performed inside the container.
+
+9. What is the extension of a Dockerfile?
+Answer: There is no extension for a Dockerfile.
+
+10. What is a golden image/golden copy?
+Answer: A golden image is a pure, vulnerability-free, hardened image that has been approved by the security team for use in production.
+======================================================================================
+
+Day 5:
+docker run -it ubuntu
+apt update
+apt install python3
+docker start containerid 
+docker commit  <container ID>  yourname
+docker save abhishekimagepython > sandeep.tar
+1  sudo apt-get update &&  apt install docker.io -y
+    2  docker run -it ubuntu
+    3  docker images
+    4  docker ps -a
+    5  docker start 2d84148e8989
+    6  docker ps
+    7  docker images
+    8  docker commit 2d84148e8989 abhishekimagepython
+    9  docker images
+   10  docker save abhishekimagepython > sandeep.tar
+   11  ls
+   12  docker ps
+   13  docker inspect wonderful_cannon
+   14  docker logs wonderful_cannon
+   15  docker logs -f wonderful_cannon
+   16  docker logs -follow wonderful_cannon
+   17  docker stats
+   18  docker logs -f wonderful_cannon > indra.log
+   19  docker logs  wonderful_cannon > indra.log
+   20  ls
+   21  docker logs --follow wonderful_cannon
+   
+   ======================================================
+   
+🔹 Docker Networking Demo: 2 Containers Communication
+🎯 Goal
+
+Create a custom Docker bridge network
+
+Run 2 containers in the same network
+
+Test container-to-container communication using container name (DNS)
+
+🧱 Step 1: Create a Custom Docker Network
+docker network create batch42
+
+Verify
+docker network ls
+
+🐳 Step 2: Run Container-1 (Web Server)
+
+Run nginx container:
+
+docker run -d \
+--name web1 \
+--network batch42 \
+nginx
+
+docker run -d --name web1 --network batch42 nginx
+
+
+🐳 Step 3: Run Container-2 (Client / Tester)
+
+Run a busybox container:
+
+docker run -it \
+--name client1 \
+--network batch42 \
+busybox sh
+
+🔍 Step 4: Test Connectivity (IMPORTANT DEMO PART)
+
+Inside client1 container:
+
+✅ Ping using container name (Docker DNS)
+ping web1
+
+
+👉 You will see PING successful
+📌 This proves:
+
+Containers are connected
+
+Docker provides built-in DNS
+
+✅ Test HTTP Connectivity
+wget -qO- http://web1
+==========================================================
+
+Based on the meeting transcript, here are the Docker-related interview questions and answers that were discussed:
+
+Interview Questions Covered:
+
+Docker Operations Knowledge
+
+The instructor asked students to rate their understanding of 10 day-to-day Docker operations (commands)
+Students were expected to know Docker build, run, start, stop, restart commands
+What is a Dockerfile?
+
+Answer: A text file without any extension that holds instructions used to build a Docker image
+Contains set of commands/instructions to assemble an image
+Used with docker build command to create images
+Can you create an image from a running container? (Reverse Engineering)
+
+Answer: Yes, it is possible
+Command: docker commit
+This creates a new image from a container with installed applications
+How to export Docker logs?
+
+Answer: Use redirection operator
+Command: docker logs > logfile.txt
+Troubleshooting Commands:
+
+docker inspect - to check container details, IP address, network info
+docker logs - to view container logs
+docker logs -f - to follow logs in real-time (f = follow)
+docker stats - to check CPU and memory usage
+docker top - to see running processes
+How to save and transfer Docker images?
+
+Answer: Convert image to tar file using docker save command
+Command: docker save > filename.tar
+To load back: docker load < filename.tar
+Cleanup activities:
+
+docker system df - to check disk space usage
+docker system prune - to clean up unused containers, networks, images (requires approval in production)
+docker image prune - to clean up only images
+Important Note: The instructor emphasized not to run cleanup commands in production without manager/client approval.
+================================
+Based on today's session, here are some scenario-based interview questions and answers:
+
+Q1: A client sends you a Docker image as a TAR file. How would you use it?
+A: Use the docker load command to convert the TAR file back into a Docker image. Then you can run containers from that image.
+
+Q2: Your container is running but you need to check what's happening inside. What commands would you use for troubleshooting?
+A:
+
+docker inspect <container_name> - to get detailed information about container configuration, IP address, network settings
+docker logs <container_name> - to view container logs
+docker logs -f <container_name> - to follow logs in real-time
+docker stats <container_name> - to check CPU and memory usage
+docker top <container_name> - to see running processes
+Q3: You installed Python inside a running Ubuntu container. Is Python now part of the Ubuntu image?
+A: No. Python is installed only inside the container, not in the base image. To save this as a new image, you need to use docker commit <container_id> <new_image_name>.
+
+Q4: Your Docker environment is running slow and consuming too much disk space. How would you handle this?
+A:
+
+First, run docker system df to check disk space usage and what can be reclaimed
+Before cleanup, take approval from manager/client
+Use docker system prune to remove stopped containers, unused networks, and dangling images
+Use docker image prune specifically for cleaning up unused images
+Q5: A container failed with "out of memory" error. What could be the reason and how would you investigate?
+A: The container consumed more memory than allocated and got killed. Use docker stats to monitor memory usage and docker inspect to check container configuration. You may need to allocate more resources to the container.
+
+Q6: How do you enable communication between multiple containers?
+A: Create a Docker network using docker network create <network_name>, then run containers with --network <network_name> flag to connect them to the same network.
+==========================================
+Today's session covered Docker operations and troubleshooting, followed by an introduction to Kubernetes. Here's the summary:
+
+Docker Operations Covered:
+
+Day-to-day Docker operations and commands
+Creating VMs and installing Docker
+Working with Dockerfiles to build images
+Container management (start, stop, restart)
+Reverse engineering: Creating images from running containers using docker commit command
+Saving Docker images as tar files using docker save command
+Loading images from tar files using docker load command
+Docker Troubleshooting:
+
+docker inspect - to check detailed container information (IP address, gateway, network details)
+docker logs - to view container logs (docker logs -f for real-time logs)
+docker stats - to monitor CPU and memory usage
+docker top - to view running processes
+Exporting logs to files using redirection
+Docker Networking:
+
+Creating custom Docker networks using docker network create
+Connecting containers to networks
+Testing connectivity between containers in the same network using ping
+Docker Cleanup:
+
+docker system df - to check disk space usage and reclaimable space
+docker system prune - to clean up stopped containers, unused networks and images
+docker image prune - to clean up unused images
+Important: Always take approval before running cleanup commands in production
+Key Points:
+
+Containers are lightweight, so some commands may need to be installed inside them
+Manual management of many containers is difficult, leading to the need for Kubernetes
+Kubernetes Introduction:
+
+Started introduction to Kubernetes for container orchestration
+Discussed limitations of manual Docker management (no auto-scaling, no self-healing, difficult to manage thousands of containers)
+Next sessions will focus on practical Kubernetes implementation starting with cluster creation on Google Cloud
+All commands and PPTs are available on GitHub and LMS for practice.
+=============================================================================================
+
+   
+
