@@ -334,6 +334,59 @@ Interview Question - Docker Commands and Concepts:
 
 * Why is Alpine Linux preferred over Ubuntu for Docker images?
 
+===============================================================DOCKER QUESTIONS:
+
+Q: How to create an image from a container?
+A: Use "docker save" command with container name and redirect (>) to save as tar file.
+
+Q: How to create a container from an image file?
+A: Use "docker load" command to load the tar file and create an image.
+
+Q: How to restart a container?
+A: Use "docker restart" command.
+
+Q: How to go inside a container?
+A: Use "docker exec -it" command followed by container name and /bin/sh.
+
+Q: How to open/expose container ports?
+A: Use EXPOSE command in Dockerfile at the end of the file.
+
+Q: How to make a Docker image lightweight?
+A: Reduce instruction lines, use base images like Alpine instead of Ubuntu, remove unnecessary CMD commands and maintainer lines.
+
+Q: How to run commands in a container without going inside?
+A: Use "docker exec" without -it flag, followed by container name and the command.
+
+Q: How to create a Docker volume?
+A: Use -v flag with host file system path, colon, then container file system path.
+
+Q: How to connect two containers to a network?
+A: Create a network using "docker create network" command with network name and type (bridge, host, etc.).
+
+KUBERNETES QUESTIONS:
+
+Q: What is a Pod?
+A: A small running unit where we can run our applications.
+
+Q: What is Deployment?
+A: A place where we deploy identical applications.
+
+Q: What is a Service?
+A: It exposes a set of pods as a network service. Types include: ClusterIP, NodePort, and LoadBalancer.
+
+Q: What is Ingress?
+A: An object in Kubernetes where we define rules to forward incoming traffic to services running inside the cluster.
+
+Q: What is Secret?
+A: Used to store small amounts of confidential data like passwords, keys, or tokens.
+
+Q: What is Control Plane?
+A: The master node/front-end node for Kubernetes cluster used for orchestrating and managing Kubernetes resources.
+
+Q: What is DaemonSet?
+A
+
+
 
 
 
