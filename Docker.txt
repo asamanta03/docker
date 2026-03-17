@@ -19,9 +19,9 @@ Comands:
    17  docker exec -it 8aafca4a6f92 bin/bash
    18  docker ps
    19  docker images
-   20  docker commit 8aafca4a6f92 anuragiswrongimage
+   20  docker commit 8aafca4a6f92(Container ID) anuragiswrongimage(New image name) (It creates a new Docker image from the current state of the container)
    21  docker images
-   22  docker pull nginx
+   22  docker pull nginx (pull image from dockerhub)
    23  docker images
    24  docker run nginx
    25  docker ps
