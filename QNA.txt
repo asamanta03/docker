@@ -384,7 +384,7 @@ Q: What is Control Plane?
 A: The master node/front-end node for Kubernetes cluster used for orchestrating and managing Kubernetes resources.
 
 Q: What is DaemonSet?
-A
+A: “A DaemonSet ensures that a specific Pod runs on every node in a Kubernetes cluster, commonly used for logging, monitoring, and node-level services.”
 
 
 
