@@ -323,6 +323,11 @@ Interview Question - Docker Commands and Concepts:
 * Who performs the build process in Docker?
 
 * How do you backup Docker images to cloud storage like S3?
+“I use docker save to export the image as a tar file and upload it to S3 using AWS CLI. In production, I prefer using container registries like ECR for versioned and managed storage.
+docker save -o myapp.tar myapp:1.0
+aws s3 cp myapp.tar s3://my-bucket/
+aws s3 cp s3://my-bucket/myapp.tar .
+docker load -i myapp.tar
 
 * Optimization:
 
@@ -337,7 +342,7 @@ Interview Question - Docker Commands and Concepts:
 ===============================================================DOCKER QUESTIONS:
 
 Q: How to create an image from a container?
-A: Use "docker save" command with container name and redirect (>) to save as tar file.
+A: Use "docker commit container_name image_name:tag" command with container name and redirect (>) to save as tar file.
 
 Q: How to create a container from an image file?
 A: Use "docker load" command to load the tar file and create an image.
